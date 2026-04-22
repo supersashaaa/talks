@@ -1,0 +1,291 @@
+---
+title: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies
+title_short: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies
+subtitle: "TAC Meeting No. 1"
+institute: "Institute of Medical Biometry \\break University of Heidelberg"
+author: "Alexandra Balzer"
+author_short: "Alexandra Balzer"
+date: "2026-02-05"
+date-format: "DD.MM.YYYY"
+format: 
+  beamer:
+    template: markdown_beamer_template.tex
+    keep-tex: true
+    cite-method: natbib
+linestretch: 1.1
+header-includes:
+    - \input{imbi_layout_markdownbeamer_en.tex}
+bibliography: bibliography.bib
+biblio-title: "References"
+classoption: "aspectratio=169"
+# Uncomment the following to two lines and insert the output path
+# knit: (function(inputFile, encoding) {
+#  rmarkdown::render(inputFile, encoding = "UTF-8", output_dir = "Put/output/path/here",  output_file = paste0("STUDYTITLE_report_", Sys.Date()) )})
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = FALSE
+)
+```
+
+```{r dependencies, include=FALSE}
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(gt)
+```
+
+### Content
+\tableofcontents
+
+# Introduction
+
+### Introduction
+
+
+* Optimization of dose finding and selection is a key goal in oncology drug research and development.
+* OPTIMUS Project: FDA initiative to improve dose optimization/dose finding.
+* Key challenge: Accurate estimation of therapeutic effects
+  * True treatment effect is often overestimated in Phase II
+  * Phase III results may not confirm Phase II findings.
+* Current: Bias-correction methods were presented for normally distributed outcomes ([@tianyu2024])
+* No methods exist yet for binary endpoints as tumor response.
+
+# Previous Work
+
+---
+
+\textcolor{uniblue}{\Huge \textbf{Previous Work}}
+
+---
+
+### Proposed Methods for normally distributed endpoints
+
+In [@tianyu2024] several methods are compared for reducing bias in normally distributed endpoints:
+
+* Jackknife,
+* **Single, Double and Triple (Non-) Parametric Bootstrap**,
+* Shrinkage Estimator by Hwang  [@Hwang] and Lindley [@Lindey],
+* Hybrid estimators. 
+
+### Setup
+
+* $I$ active treatment arms with $n$ patients.
+* Response $X_{ij}$ for patient $j$ in group $i$ with $X_{ij} \sim g(\theta_i)$ and $i = 1, \dots, I$. 
+* $\mathbf{X_i} = (X_{i1}, \dots, X_{in})$ vector of responses for group $i$ and $\mathbf{X} = (\mathbf{X_1}, \dots, \mathbf{X_I}).$
+
+
+* Parameter of interest is $\theta_{max} = \max(\theta_1, \dots, \theta_I).$
+* Estimator:  $\hat{\theta}(\mathbf{X}) = \max[\bar{\mathbf{X}}_1, \dots ,\bar{\mathbf{X}}_I]$.
+* Even if $\bar{\mathbf{X}}_i = \mathrm{mean}(X_{i1}, \dots, X_{in})$ is an unbiased estimator, $\hat{\theta}(\mathbf{X})$ is biased.
+
+
+### Idea of the Bootstrap Method
+
+* The bias of the initial estimator is: 
+$$\mathrm{Bias} = \mathrm{E}[\hat{\theta}(\mathbf{X})] - \theta_{max}.$$
+* Bootstrap can be used to estimate this bias: 
+$$\widehat{\mathrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X}).$$
+* This yields a bias-reduced estimator:
+$$\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\mathrm{Bias}}.$$
+
+
+# My Simulation Study
+
+---
+
+\textcolor{uniblue}{\Huge \textbf{My Simulation Study}}
+
+---
+
+### General Setup
+::: columns
+::: column
+
+* The simulation study consists of three parts.
+* For each part, 10.000 repetitions are performed.
+* The study design includes nine dose-response relationships each with 5 doses [@Ivanova2012].
+* For each dose level, $n = 40$ patients per arm are considered.
+* Binary endpoints are examined (e.g., response).
+
+:::
+
+::: column
+
+```{r 1, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Dose-Response.jpg")
+
+```
+:::
+:::
+
+## Part I - Optimization of Bootstrap Repetitions
+
+### Part I - Optimization of Bootstrap Repetitions
+**Aim**: Optimize the number of bootstrap repetitions $B$ for the single and double (non-)parametric bootstrap in binary endpoints, based on bias and MSE.
+
+* Triple bootstrap is not considered in this part due to computational burden.
+* The number of bootstrap repetitions $B$ is set to 80, 100, 200, 500, and 1000.
+
+## Part II - Bayesian Hierarchical Models
+### Part II - Bayesian Hierarchical Models
+
+**Aim**: Identify the optimal hyperprior (with corresponding parameters) for a Bayesian hierarchical model to minimize bias and MSE.
+
+The model is specified as: $Y_i \sim \mathrm{Bin}(n, p_i), \quad i = 1, \dots, 5$ with
+
+$$ \mathrm{logit}(p_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).$$
+
+* Hyperpriors determine how much information is pooled across groups (i.e., $\sigma^2$ controls degree of shrinkage).
+
+* The following MCMC settings are applied fo all fits: burn-in 2.000, number of chains 3, total MCMC iterations per chain: 10.000.
+
+### Part II - Priors
+
+The priors and corresponding parameters to evaluate are based on [@Cunanan]:
+
+* $\mathrm{Unif}[0, a]$ for $\log(\sigma), \sigma, \sigma^2$ with
+  * $a \in \{1, 2, 5, 10, 25, 50, 100, 500, 1000\}$.
+
+* Half-t for $\sigma$ with
+  * scale parameter $s \in \{0.5, 1, 2.5, 10, 25, 50, 100, 250, 500, 1000\}$ and
+  * degrees of freedom $df \in \{1, 2, 5, 10, 25, 50, 100, 500\}$.
+
+* Gamma distribution $\Gamma(a,b)$ for $\tau = \frac{1}{\sigma^2}$ with
+  * $a \in \{0.005, 0.05, 0.25, 0.5, 1, 2, 5\}$, and
+  * $b \in  \{0.0005, 0.001, 0.005, 0.01, 0.1, 0.5, 1, 2, 5, 20, 50\}$.
+
+
+
+# Results
+
+---
+
+\textcolor{uniblue}{\Huge \textbf{Results}}
+
+---
+### Part I
+
+\pause
+
+```{r 2, echo = F, out.width = "54%", fig.align = 'left'}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Bias_Bootstrap.png")
+
+```
+
+### Part I
+
+
+```{r 2.1, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Part I.png")
+
+```
+
+### Part I: Summary
+
+* No relevant differences in bias or MSE across bootstrap iterations.
+* $B = 80$ bootstrap iterations provide adequate bias correction.
+
+
+### Part II: Uniform
+
+\pause
+
+```{r 4, echo = F, out.width = "56%", fig.align='left'}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/bias_uniform.png")
+
+```
+
+### Part II: Uniform
+
+```{r 4.1, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Uniform.png")
+
+```
+
+
+### Part II: Half-t
+
+\pause
+
+```{r 5, echo = F, fig.align = 'left', out.width = "55%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/bias_halft.png")
+
+```
+
+### Part II: Half-t
+
+
+
+```{r 5.1, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/half-t.png")
+
+```
+
+### Part II: Gamma
+
+\pause
+
+```{r 6, echo = F, out.width = "55%", fig.align= 'left'}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/bias_gamma.png")
+
+```
+
+### Part II: Gamma
+
+```{r 6.1, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Gamma.png")
+
+```
+
+### Part II: Gamma
+
+```{r 7, echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Simulation final/Gamma_Zoom.png")
+
+```
+
+### Part II: Summary
+
+\begin{tabular}{l r r l r r }
+\textbf{Method} & \multicolumn{4}{l}{\textbf{Parameter}} & \textbf{Bias (MSE)} \\ \hline
+Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
+Uniform $\sigma$ & $a = $ & 100 & &  & -0.0047 (0.00371)  \\
+Uniform $\sigma^2$ & $a = $ & 1000 & &  & 0.0003 (0.00357)  \\
+Half-t & $df = $ & 100& s = & 500 & -0.0043 (0.00369)  \\
+Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335) 
+\end{tabular}
+
+\
+
+* Uniform prior on $\sigma^2$ with $a = 1000$ and Gamma prior with $a = 0.25$ and $b = 5$ show the smallest bias.
+* MSE is very similar for most parameter values and hyperpiros, except of extreme outliers.
+
+
+# Next Steps
+
+### Further Considerations
+
+* Simulations will also be performed with smaller groups sizes, e.g. n = 20; depending on the results, further sample sizes will be investigated.
+* Triple Bootstrap will be analysed for $B = 80$; depending on computation time, additional runs with $B = 100$ and $B = 200$ may be considered. 
+* The maximal response in each dose-response relationship will be reduced to 60%, i.e. all responses will be scaled accordingly.
+
+### Part III
+
+
+Based on the findings from Part I/II ($B = 80$, Gamma prior on $\tau = \frac{1}{\sigma^2}$ ($a = 0.25$, $b = 5$) and Uniform on $\sigma^2$ with $a = 1000$), the following will be considered for the next comparison:
+
+* Additional methods (Jackknife, Shrinkage Estimator, Hybrid estimators) from [@tianyu2024] will be investigated.
+* For the Hybrid estimator [@tianyu2024], Double Bootstrap and the Shrinkage Estimator were combined. Based on Part I, Single Bootstrap and Shrinkage Estimator may be combined.
+* Methods proposed by [@Stein] (additive and/or multiplicative adjustment) will be applied.

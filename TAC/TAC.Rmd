@@ -1,0 +1,111 @@
+---
+# Change this file's ending from .Rmd to .qmd for this to work.
+title: Long title
+title_short: title
+subtitle: Subtitle
+institute: "Institute of Medical Biometry\\linebreak University of Heidelberg"
+author: "Long author\\linebreak author@imbi.uni-heidelberg.de"
+author_short: author
+date: Date
+format: 
+  beamer:
+    template: markdown_beamer_template.tex
+    keep-tex: true
+    cite-method: natbib
+linestretch: 1.1
+header-includes:
+    - \input{imbi_layout_markdownbeamer_en.tex}
+bibliography: bibliography.bib
+biblio-title: "References"
+classoption: "aspectratio=169"
+# Uncomment the following to two lines and insert the output path
+# knit: (function(inputFile, encoding) {
+#  rmarkdown::render(inputFile, encoding = "UTF-8", output_dir = "Put/output/path/here",  output_file = paste0("STUDYTITLE_report_", Sys.Date()) )})
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = FALSE
+)
+```
+
+```{r dependencies, include=FALSE}
+library(tidyverse)
+```
+
+### Content
+\tableofcontents
+
+# Section 1
+## Subsection 1
+### Frame title
+The appearance of the title slide can be adjusted in
+imbi_layout_markdownbeamer_en.tex (e.g. no subtitle).
+\vspace{1cm}
+
+You can define which header level to use for frames with the `slide_level`
+parameter in the YAML header.
+By default, the highest header level followed by content defines frames. 
+Higher header levels define sections.  
+See https://bookdown.org/yihui/rmarkdown/beamer-presentation.html for other
+details.
+
+# Section 2
+
+---
+
+Three horizontal bars create a frame without title.
+Declare new commands like $\Var$ at the end of imbi_layout_markdownbeamer_en.tex.
+
+* This
+* is
+* a
+* list
+
+### Here comes a big plot
+
+
+```{r plot}
+#| fig.height: 4
+#| fig.width: 8
+#| fig.align: 'center'
+#| echo: FALSE
+#| message: FALSE
+#| results:  'hide'
+#| out-width:  95%
+#| out-height:  95%
+par(mar = c(5, 5, 0.5, 2))
+plot(mtcars$mpg, mtcars$disp)
+```
+
+---
+
+### Here comes a scaled down plot
+\small
+The chunk options `fig.height` and `fig.width` determine the settings of the
+R graphics device. This influences e.g. the relative size of axis labels
+in comparison to the plot. It works similarly to when you adjust the size of the
+plot window in the bottom right corner of Rstudio.
+
+`out-width` and `out-height` determine the size of the figure that is included
+into the latex document. They are passed as arguments to the latex function
+`\includegraphics`. Essentially, they determine how the plot is scaled.
+
+```{r plotsmall}
+#| fig.height: 4
+#| fig.width: 8
+#| fig.align: 'center'
+#| echo: FALSE
+#| message: FALSE
+#| results:  'hide'
+#| out-width:  45%
+#| out-height:  45%
+par(mar = c(5, 5, 0.5, 2))
+plot(mtcars$mpg, mtcars$disp)
+```
+
+---
+
+
+References of all cited sources are created automatically at the end when
+bilbiography file is given in the YAML header [@ref].
