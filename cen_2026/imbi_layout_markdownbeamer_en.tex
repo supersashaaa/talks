@@ -1,0 +1,98 @@
+%Navigationssymbole ausblenden
+\setbeamertemplate{navigation symbols}{}
+
+%Arial
+\usepackage[default]{opensans} 
+
+\definecolor{uniblue}{RGB}{0,51,102}
+\definecolor{unired}{RGB}{153,0,0}
+\definecolor{unigrey}{RGB}{84,84,85}
+
+%Blocks
+\setbeamertemplate{blocks}[rounded]
+
+\setbeamerfont{block title}{shape=\bfseries}
+\setbeamercolor{block title}{fg=uniblue,bg=uniblue!20!white}
+\setbeamercolor{block body}{fg=uniblue,bg=uniblue!10!white}
+
+\setbeamerfont{block title alerted}{shape=\bfseries}
+\setbeamercolor{block title alerted}{fg=unired,bg=unired!20!white}
+\setbeamercolor{block body alerted}{fg=uniblue,bg=unired!10!white}
+
+% Beamer theme
+\useinnertheme[shadow=true]{rounded}
+
+%Titel fett
+\setbeamerfont{title}{shape=\bfseries}
+
+%Format Frametitle
+\setbeamercolor{frame title line}{bg=uniblue}
+\setbeamertemplate{frametitle}{
+	\hspace{0cm}\insertframetitle
+	\vspace*{-0.2cm}
+	\begin{beamercolorbox}[colsep=.5pt,wd=0.9\paperwidth]{frame title line}
+	\end{beamercolorbox}
+}
+
+%Farben Global
+\setbeamercolor{structure}{fg=uniblue}
+\setbeamercolor{section in toc}{fg=unigrey}
+\setbeamercolor{subsection in toc}{fg=unigrey}
+\setbeamercolor{normal text}{fg=unigrey}
+\setbeamercolor{alerted text}{fg=unired}
+
+%Titlepage
+\setbeamertemplate{title page}
+{\vskip3pt
+\begin{picture}(-10,80)\put(-10,0){\includegraphics[width=0.15\paperwidth]{LogoUKHDenpositivCMYK}}\end{picture}
+\begin{picture}(80,80)\put(300,-5){\includegraphics[height=1.5cm]{Logo-IMBI_ENGL_neu}}\end{picture}
+
+\begin{center}
+\vskip5pt
+{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+\vskip5pt
+\vspace{0.15cm}
+\insertsubtitle
+\vspace{0.65cm}
+\linebreak \insertdate 
+\medskip
+\linebreak \insertauthor
+\linebreak \insertinstitute
+\end{center}
+\vskip10pt plus 1filll
+}
+
+\setbeamercolor{section in head/foot}{fg=uniblue}
+
+% Format headline
+\setbeamertemplate{headline}{
+	\vspace{1ex}
+	\begin{beamercolorbox}[ignorebg,ht=2.25ex,dp=3.75ex]{section in head/foot}
+   \insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1fill}{\hskip0pt plus1fill}
+  \end{beamercolorbox}%
+}
+
+% Format footline
+\setbeamertemplate{footline}{
+\vspace{4ex}\hbox{
+\begin{beamercolorbox}[wd=0.12\paperwidth,ht=2.5ex,dp=2ex,center]{logo in head/foot}%
+\usebeamerfont{logo in head/foot}\hfill\includegraphics[width=0.09\textwidth]{logo}
+\end{beamercolorbox}
+\begin{beamercolorbox}[wd=0.8\paperwidth,ht=2.5ex,dp=2.25ex,center]{author in head/foot}%
+\usebeamerfont{author in head/foot}\insertshortauthor\quad | \quad\insertshorttitle\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\hfill\vspace{0.07cm}
+\end{beamercolorbox}
+\begin{beamercolorbox}[wd=.07\paperwidth,ht=2.5ex,dp=2.2ex,left]{title in head/foot}%
+\usebeamerfont{title in head/foot}\hfill \textcolor{uniblue}{\insertframenumber}\vspace{0.09cm}
+\end{beamercolorbox}}
+\vskip0pt
+}
+
+% Quadrate als Aufzählungszeichen
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{subsection in toc}[square]
+
+% New commands
+\newcommand{\Var}{\mathrm{Var}}
+
+

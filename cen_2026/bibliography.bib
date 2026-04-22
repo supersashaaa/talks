@@ -1,0 +1,107 @@
+@article{tianyu2024,
+author = {Zhan, Tianyu},
+title = {A class of computational methods to reduce selection bias when designing Phase 3 clinical trials},
+journal = {Statistics in Medicine},
+volume = {43},
+number = {10},
+pages = {1993-2006},
+keywords = {bias correction, estimation, higher-order bootstrap, Jackknife},
+doi = {https://doi.org/10.1002/sim.10041},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.10041},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/sim.10041},
+abstract = {When designing confirmatory Phase 3 studies, one usually evaluates one or more efficacious and safe treatment option(s) based on data from previous studies. However, several retrospective research articles reported the phenomenon of “diminished treatment effect in Phase 3” based on many case studies. Even under basic assumptions, it was shown that the commonly used estimator could substantially overestimate the efficacy of selected group(s). As alternatives, we propose a class of computational methods to reduce estimation bias and mean squared error with a broader scope of multiple treatment groups and flexibility to accommodate summary results by group as input. Based on simulation studies and a real data example, we provide practical implementation guidance for this class of methods under different scenarios. For more complicated problems, our framework can serve as a starting point with additional layers built in. Proposed methods can also be widely applied to other selection problems.},
+year = {2024}
+}
+
+@article{Ivanova2012,
+author = {Ivanova, Anastasia and Xiao, Changfu and Tymofyeyev, Yevgen},
+title = {Two-stage designs for Phase 2 dose-finding trials},
+journal = {Statistics in Medicine},
+volume = {31},
+number = {24},
+pages = {2872-2881},
+keywords = {Dose ranging, Minimum effective dose, Maximum dose, Phase 2 trials, two-stage designs},
+doi = {https://doi.org/10.1002/sim.5365},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.5365},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/sim.5365},
+abstract = {We propose a Bayesian adaptive two-stage design for the efficient estimation of the maximum dose or the minimum effective dose in a dose-finding trial. The new design allocates subjects in stage two according to the posterior distribution of the target dose location. Simulations show that the proposed two-stage design is superior to equal allocation and to a two-stage strategy where only one dose is left in the second stage. Copyright © 2012 John Wiley \& Sons, Ltd.},
+year = {2012}
+}
+
+@article{Hwang,
+ ISSN = {0581572X},
+ URL = {http://www.jstor.org/stable/25050934},
+ abstract = {The problem of estimation after selection can arise in many statistical applications. The intuitive estimator constructed as if there were no prior selection appears to be misleading. This is especially so when one is estimating the characteristic of the chosen population, selected to maximize estimates of the similar characteristics. In such a case, the intuitive estimator highly overestimate the chosen characteristic. The characteristic focussed here is the mean and a normal parametric assumption of the observations is made. The porblem of improving upon the intuitive estimators appears to be technically very difficult. No alternative estimator has been proposed which was shown analytically to dominate the intuitive estimator in any sense. We provide an empirical Bayes estimator which was shown to dominate the intuitive estimator in terms of Bayes risk with respect to any normal prior. Note that the frequentist risk domination is not possible. Numerical studies also provide strong evidence that the domination is robust with respect to independently identically distributed priors, not necessarily normal. The estimator does not overestimate the target parameter for many circumstances.},
+ author = {Jiunn T. Hwang},
+ journal = {Sankhyā: The Indian Journal of Statistics, Series A (1961-2002)},
+ number = {2},
+ pages = {285--304},
+ publisher = {Springer},
+ title = {Empirical Bayes Estimation for the Means of the Selected Populations},
+ urldate = {2025-12-08},
+ volume = {55},
+ year = {1993}
+}
+
+@article{Lindey,
+    author = {Lindley},
+    title = {Discussion on Professor Stein’s Paper},
+    journal = {Journal of the Royal Statistical Society: Series B (Methodological)},
+    volume = {24},
+    number = {2},
+    pages = {285-296},
+    year = {2018},
+    month = {12},
+    issn = {0035-9246},
+    doi = {10.1111/j.2517-6161.1962.tb00459.x},
+    url = {https://doi.org/10.1111/j.2517-6161.1962.tb00459.x},
+    eprint = {https://academic.oup.com/jrsssb/article-pdf/24/2/285/49168160/jrsssb_24_2_285.pdf},
+}
+
+@article{Cunanan,
+author = {Kristen M Cunanan and Alexia Iasonos and Ronglai Shen and Mithat Gönen},
+title ={Variance prior specification for a basket trial design using Bayesian hierarchical modeling},
+
+journal = {Clinical Trials},
+volume = {16},
+number = {2},
+pages = {142-153},
+year = {2019},
+doi = {10.1177/1740774518812779},
+    note ={PMID: 30526008},
+
+URL = {
+
+        https://doi.org/10.1177/1740774518812779
+
+
+
+},
+eprint = {
+
+        https://doi.org/10.1177/1740774518812779
+
+
+
+}
+,
+    abstract = { Background: In the era of targeted therapies, clinical trials in oncology are rapidly evolving, wherein patients from multiple diseases are now enrolled and treated according to their genomic mutation(s). In such trials, known as basket trials, the different disease cohorts form the different baskets for inference. Several approaches have been proposed in the literature to efficiently use information from all baskets while simultaneously screening to find individual baskets where the drug works. Most proposed methods are developed in a Bayesian paradigm that requires specifying a prior distribution for a variance parameter, which controls the degree to which information is shared across baskets.Methods: A common approach used to capture the correlated binary endpoints across baskets is Bayesian hierarchical modeling. We evaluate a Bayesian adaptive design in the context of a non-randomized basket trial and investigate three popular prior specifications: an inverse-gamma prior on the basket-level variance, a uniform prior and half-t prior on the basket-level standard deviation.Results: From our simulation study, we can see that the inverse-gamma prior is highly sensitive to the input hyperparameters. When the prior mean value of the variance parameter is set to be near zero (≤0.5), this can lead to unacceptably high false-positive rates (≥40\%) in some scenarios. Thus, use of this prior requires a fully comprehensive sensitivity analysis before implementation. Alternatively, we see that a prior that places sufficient mass in the tail, such as the uniform or half-t prior, displays desirable and robust operating characteristics over a wide range of prior specifications, with the caveat that the upper bound of the uniform prior and the scale parameter of the half-t prior must be larger than 1.Conclusion: Based on the simulation results, we recommend that those involved in designing basket trials that implement hierarchical modeling avoid using a prior distribution that places a majority of the density mass near zero for the variance parameter. Priors with this property force the model to share information regardless of the true efficacy configuration of the baskets. Many commonly used inverse-gamma prior specifications have this undesirable property. We recommend to instead consider the more robust uniform prior or half-t prior on the standard deviation. }
+}
+
+
+@article{Stein,
+author = {Kirby, S. and Burke, J. and Chuang-Stein, C. and Sin, C.},
+title = {Discounting phase 2 results when planning phase 3 clinical trials},
+journal = {Pharmaceutical Statistics},
+volume = {11},
+number = {5},
+pages = {373-385},
+keywords = {assurance, bias adjustment, launch criteria for phase 3 trials},
+doi = {https://doi.org/10.1002/pst.1521},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1521},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/pst.1521},
+abstract = {Sample size planning is an important design consideration for a phase 3 trial. In this paper, we consider how to improve this planning when using data from phase 2 trials. We use an approach based on the concept of assurance. We consider adjusting phase 2 results because of two possible sources of bias. The first source arises from selecting compounds with pre-specified favourable phase 2 results and using these favourable results as the basis of treatment effect for phase 3 sample size planning. The next source arises from projecting phase 2 treatment effect to the phase 3 population when this projection is optimistic because of a generally more heterogeneous patient population at the confirmatory stage. In an attempt to reduce the impact of these two sources of bias, we adjust (discount) the phase 2 estimate of treatment effect. We consider multiplicative and additive adjustment. Following a previously proposed concept, we consider the properties of several criteria, termed launch criteria, for deciding whether or not to progress development to phase 3. We use simulations to investigate launch criteria with or without bias adjustment for the sample size calculation under various scenarios. The simulation results are supplemented with empirical evidence to support the need to discount phase 2 results when the latter are used in phase 3 planning. Finally, we offer some recommendations based on both the simulations and the empirical investigations. Copyright © 2012 John Wiley \& Sons, Ltd.},
+year = {2012}
+}
+
+
