@@ -124,6 +124,8 @@
 \usepackage{makecell}
 \usepackage{xcolor}
 \input{imbi_layout_markdownbeamer_en.tex}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -244,18 +246,43 @@ Heidelberg}
 
 \begin{frame}{Idea of the Bootstrap Method}
 \phantomsection\label{idea-of-the-bootstrap-method}
-\begin{itemize}
-\tightlist
-\item
-  The bias of the initial estimator is:
-  \[\mathrm{Bias} = \mathrm{E}[\hat{\theta}(\mathbf{X})] - \theta_{max}.\]
-\item
-  Bootstrap \textbf{B} can be used to estimate this bias:
-  \[\widehat{\mathrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X}).\]
-\item
-  This yields a bias-reduced estimator:
-  \[\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\mathrm{Bias}}.\]
-\end{itemize}
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+
+% --- Row 1: Original Bias ---
+\draw[-] (0,4.2) -- (8,4.2);
+\draw[|-|] (1,4.2) -- (5,4.2);
+
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (1, 4.3) -- (5, 4.3) 
+    node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
+\node[below] at (1, 4.2) {$\theta_{max}$};
+\node[below] at (5, 4.2) {$\hat{\theta}(x)$};
+
+% --- Row 2: Bootstrap Bias Estimate ---
+
+\draw[-] (0,2.5) -- (8,2.5);
+\draw[|-|] (1,2.5) -- (5,2.5);
+\draw[|-|] (5,2.5) -- (7,2.5);
+\node[below] at (1, 2.5) {$\theta_{max}$};
+\node[below] at (5, 2.5) {$\hat{\theta}(x)$};
+\node[below] at (7, 2.5) {$\hat{\theta}(x_B)$};
+
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (5, 2.6) -- (7, 2.6) 
+    node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
+
+% --- Row 3: Bias-corrected Estimator ---
+\draw[-] (0,0.4) -- (8,0.4);
+\draw[|-|] (1,0.4) -- (3,0.4);
+\draw[|-|] (3,0.4) -- (5,0.4);
+\node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(x) = \hat{\theta}(x) - \widehat{\textrm{Bias}} $};
+\node[below] at (1, 0.4) {$\theta_{max}$};
+\node[below] at (5, 0.4) {$\hat{\theta}(x)$};
+
+
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}{Part I - Optimization of Bootstrap Repetitions}
@@ -392,12 +419,12 @@ with the following settings:
 \phantomsection\label{part-ii-uniform-0-a}
 \pause
 
-\includegraphics[width=0.56\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/bias_uniform.png}\hfill
+\includegraphics[width=0.56\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/uniform_bias_cen.png}\hfill
 \end{frame}
 
 \begin{frame}{Part II: Uniform {[}0, a{]}}
 \phantomsection\label{part-ii-uniform-0-a-1}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/Uniform.png}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/uniform_cen.png}
 \end{frame}
 
 \begin{frame}{Part II: Half-t(df, s)}
@@ -457,9 +484,17 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \item
   Bayesian methods show promising results in reducing bias.
 \item
-  Further scenarios (Bayesian methods) and further methods will be
+  Further scenarios for Bayesian methods and further methods will be
   investigated.
 \end{itemize}
+\end{frame}
+
+\subsection{References}\label{references}
+
+\section{Appendix}\label{appendix}
+
+\begin{frame}{}
+\phantomsection\label{section}
 \end{frame}
 
 \renewcommand\refname{References}
