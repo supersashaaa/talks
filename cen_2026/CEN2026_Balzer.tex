@@ -176,7 +176,7 @@
 \title[Computational Methods to Reduce Bias in Binary Endpoints in
 Dose-finding Studies]{Computational Methods to Reduce Bias in Binary
 Endpoints in Dose-finding Studies}
-\subtitle{CEN 2026}
+\subtitle{CEN Warschau 2026}
 \author[Alexandra Balzer]{Alexandra Balzer}
 \date{21.05.2026}
 \institute{Institute of Medical Biometry \break University of
@@ -253,8 +253,8 @@ Heidelberg}
 \draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
-\draw [decorate, decoration={brace, amplitude=10pt}] 
-    (1, 4.3) -- (5, 4.3) 
+\draw [decorate, decoration={brace, amplitude=10pt}]
+    (1, 4.3) -- (5, 4.3)
     node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
 \node[below] at (5, 4.2) {$\hat{\theta}(x)$};
@@ -264,12 +264,12 @@ Heidelberg}
 \draw[-] (0,2.5) -- (8,2.5);
 \draw[|-|] (1,2.5) -- (5,2.5);
 \draw[|-|] (5,2.5) -- (7,2.5);
-\node[below] at (1, 2.5) {$\theta_{max}$};
-\node[below] at (5, 2.5) {$\hat{\theta}(x)$};
-\node[below] at (7, 2.5) {$\hat{\theta}(x_B)$};
+\node[below] at (1, 2.5) {\small $\theta_{max}$};
+\node[below] at (5, 2.5) {\small $\hat{\theta}(x)$};
+\node[below] at (7, 2.5) {\small $\hat{\theta}(x_B)$};
 
-\draw [decorate, decoration={brace, amplitude=10pt}] 
-    (5, 2.6) -- (7, 2.6) 
+\draw [decorate, decoration={brace, amplitude=10pt}]
+    (5, 2.6) -- (7, 2.6)
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
 
 % --- Row 3: Bias-corrected Estimator ---
@@ -277,8 +277,8 @@ Heidelberg}
 \draw[|-|] (1,0.4) -- (3,0.4);
 \draw[|-|] (3,0.4) -- (5,0.4);
 \node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(x) = \hat{\theta}(x) - \widehat{\textrm{Bias}} $};
-\node[below] at (1, 0.4) {$\theta_{max}$};
-\node[below] at (5, 0.4) {$\hat{\theta}(x)$};
+\node[below] at (1, 0.4) {\small $\theta_{max}$};
+\node[below] at (5, 0.4) {\small $\hat{\theta}(x)$};
 
 
 \end{tikzpicture}
@@ -457,7 +457,7 @@ Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
 Uniform $\sigma$ & $a = $ & 100 & &  & -0.0047 (0.00371)  \\
 Uniform $\sigma^2$ & $a = $ & 1000 & &  & 0.0003 (0.00357)  \\
 Half-t & $df = $ & 100& s = & 500 & -0.0043 (0.00369)  \\
-Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335) 
+Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \end{tabular}
 
 \begin{itemize}
@@ -489,18 +489,49 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \end{itemize}
 \end{frame}
 
-\subsection{References}\label{references}
-
-\section{Appendix}\label{appendix}
-
-\begin{frame}{}
-\phantomsection\label{section}
-\end{frame}
-
 \renewcommand\refname{References}
 \begin{frame}[allowframebreaks]{References}
   \bibliographytrue
   \bibliography{bibliography.bib}
 \end{frame}
+
+\subsection{Appendix}\label{appendix}
+
+\begin{frame}{n = 40, max response 60\%, 5 groups}
+\phantomsection\label{n-40-max-response-60-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 40, max response 80\%, 3 groups}
+\phantomsection\label{n-40-max-response-80-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r0_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 40, max response 60\%, 3 groups}
+\phantomsection\label{n-40-max-response-60-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 80\%, 5 groups}
+\phantomsection\label{n-20-max-response-80-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 60\%, 5 groups}
+\phantomsection\label{n-20-max-response-60-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 80\%, 3 groups}
+\phantomsection\label{n-20-max-response-80-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 60\%, 3 groups}
+\phantomsection\label{n-20-max-response-60-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr3.png}
+\end{frame}
+
+
 
 \end{document}

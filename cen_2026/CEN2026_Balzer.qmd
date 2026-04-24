@@ -1,7 +1,7 @@
 ---
 title: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies
 title_short: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies
-subtitle: "CEN 2026"
+subtitle: "CEN Warschau 2026"
 institute: "Institute of Medical Biometry \\break University of Heidelberg"
 author: "Alexandra Balzer"
 author_short: "Alexandra Balzer"
@@ -89,16 +89,16 @@ library(gt)
     (1, 4.3) -- (5, 4.3) 
     node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
-\node[below] at (5, 4.2) {$\hat{\theta}(x)$};
+\node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
 
 % --- Row 2: Bootstrap Bias Estimate ---
 
 \draw[-] (0,2.5) -- (8,2.5);
 \draw[|-|] (1,2.5) -- (5,2.5);
 \draw[|-|] (5,2.5) -- (7,2.5);
-\node[below] at (1, 2.5) {$\theta_{max}$};
-\node[below] at (5, 2.5) {$\hat{\theta}(x)$};
-\node[below] at (7, 2.5) {$\hat{\theta}(x_B)$};
+\node[below] at (1, 2.5) {\small $\theta_{max}$};
+\node[below] at (5, 2.5) {\smal $\hat{\theta}(\mathbf{X})$};
+\node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
     (5, 2.6) -- (7, 2.6) 
@@ -108,28 +108,29 @@ library(gt)
 \draw[-] (0,0.4) -- (8,0.4);
 \draw[|-|] (1,0.4) -- (3,0.4);
 \draw[|-|] (3,0.4) -- (5,0.4);
-\node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(x) = \hat{\theta}(x) - \widehat{\textrm{Bias}} $};
-\node[below] at (1, 0.4) {$\theta_{max}$};
-\node[below] at (5, 0.4) {$\hat{\theta}(x)$};
+\node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\textrm{Bias}} $};
+\node[below] at (1, 0.4) {\small $\theta_{max}$};
+\node[below] at (5, 0.4) {\small $\hat{\theta}(\mathbf{X})$};
 
 
 \end{tikzpicture}
 \end{center}
 ```
 
+# Simulation Study
+
 ### Part I - Optimization of Bootstrap Repetitions
 **Aim**: Optimize the number of bootstrap repetitions $B$ for the single and double (non-)parametric bootstrap in binary endpoints, based on bias and MSE.
 
-* Triple bootstrap is not considered in this part due to computational burden.
 * The number of bootstrap repetitions $B$ is set to 80, 100, 200, 500, and 1000.
 
 ### Part II - Bayesian Hierarchical Models
 
 **Aim**: Identify the optimal hyperprior (with corresponding parameters) for a Bayesian hierarchical model to minimize bias and MSE.
 
-The model is specified as: $Y_i \sim \mathrm{Bin}(n, p_i), \quad i = 1, \dots, 5$ with
+The model is specified as: $Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, 5$ with
 
-$$ \mathrm{logit}(p_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).$$
+$$ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).$$
 
 * Hyperpriors determine how much information is pooled across groups (i.e., $\sigma^2$ controls degree of shrinkage).
 
@@ -151,7 +152,6 @@ The priors and corresponding parameters to evaluate are based on [@Cunanan]:
   * $b \in  \{0.0005, \dots, 50\}$.
   
 
-# Simulation Study
 
 ### General Setup
 ::: columns
@@ -281,7 +281,74 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 * Bayesian methods show promising results in reducing bias.
 * Further scenarios for Bayesian methods and further methods will be investigated.
 
-## References
+## Appendix
+
+
+### n = 40, max response 60%, 5 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n40_r1_gr5.png")
+
+```
+
+### n = 40, max response 80%, 3 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n40_r0_gr3.png")
+
+```
+
+### n = 40, max response 60%, 3 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n40_r1_gr3.png")
+
+```
+
+### n = 20, max response 80%, 5 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n20_r0_gr5.png")
+
+```
+
+### n = 20, max response 60%, 5 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n20_r1_gr5.png")
+
+```
+
+### n = 20, max response 80%, 3 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n20_r0_gr3.png")
+
+```
+
+### n = 20, max response 60%, 3 groups
+
+
+```{r , echo = F, out.width = "100%"}
+
+knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n20_r1_gr3.png")
+
+```
+
+
+
 
 
 

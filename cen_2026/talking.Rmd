@@ -1,0 +1,67 @@
+---
+title: "CEN Talking"
+author: "Alexandra Balzer"
+date: "2026-04-23"
+output: pdf_document
+---
+
+Hello, I am Alexandra Balzer from the Institute of Medical Biometry in Heidelberg and I am happy to present some first results from my PhD project. I am going to talk about computational methods to reduce bias in binary endpoints in dose-finding studies.
+
+We start directly with an introduction and some previous work. 
+So optimization of dose finding and dose selection is a key goal in oncology drug research. To address this, the FDA launched the OPTIMUS Project to imporve dose finding. One key challenge is the accurate estimation of therapeutic effects, as true treatment effects are often overestimated in smaller Phase II studies and thus cannot be confirmed in Phase III studies.
+
+Zhan proposed some methods for bias correction for normally distributed endpoints for example with bootstrap methods. However, a literature review revealed that no methods for binary endpoints have been investigated in such a setting. 
+
+So the setup is the following:
+We consider I active treatment arm. The response for a patient j in group i is given as $X_{ij}$ and is following a Bernoulli distribution with unknown parameter $\theta_i$.
+So for each dose arm we get a vector of responses $\mathbf{X_i} = (X_{i1}, \dots , X_{in})$ and a matrix of the response vectors. $\mathbf{X} = (\mathbf{X_1}, \dots, \mathbf{X_I})$.
+The parameter of interest is the maximum $\theta_i$, that is the maximum over all response proportions. The estimator for this $\theta_max$ is given, as the maximum over all mean values. 
+But even if the mean value over all responses in one arm is unbiased, the estimator for the maximum response is not. 
+
+So one idea is to use bootstrap to correct for this bias. 
+So we have the true but unknown paramter $\theta_{max}$. The estimator $\hat{\theta}(\mathbf{X})$ is biased and the true bias is defined as the expected value of $\hat{\theta}(\mathbf{X})$ minus the true maximum.
+Since the true maximum is unkown, we use bootstrapping to estimate the bias as the expected value of  $\hat{\theta}(\mathbf{X_B})$ minus the initial estimator.
+WE then correct for the estimated bis to obtain a bias-corrected estimator theta1.
+
+The first objecive is to evalute the number of bootstrap iterations and optimize it with respect to bias and MSE. We consider  80, 100, 200, 500 and 1000 bootstrap iterations. 
+ 
+For the second part, we are using Bayesian hierarchical models to adjust for the bias and the aim is to identify an optimal hyper prior. We specifiy the following model, we assume at $Y_i$ which is binomially distributed with the number of patients and the true response proportion $\theta_i$ in this group. so the logit of $\theta_i$ is normally distributed with mean $\mu$ and variance $\sigma^2$. The hyper prior on $\sigma^2$ is then controlling how much information is pooled across the groups, so it controls the degree of shrinkage. The following Markov Chain Monte Carlo settings are used, 2.000 burn in, 3 chains and 10.000 iterations per chain. 
+
+The following three distributions following Cunanan. 
+The uniform distribution for $\log(\sigma)$, $\sigma$ and $\sigma^2$ and varying upper limits from 1 to 1000.
+
+The Half-t distribution for $\sigma$ varying the scale parameter $s$ from 0.5 to 1000 and the degrees of freedom raning from 1 to 500. 
+And the Gamma distribution of the precsion parameter $tau$ defined as one through $\sigma^2$ with shape paramter $a$ and  rate paramter $b$.
+
+For both parts 10.000 simulations iterations are considered with 9 different dose-response relationship, as shown on the right side like such as the Emax model or a linear relationship between dose and response proportion with 3 or 5 groups. The maximal true response is also taking values for 60% or 80% and also different sample size n = 20 or n = 40. 
+
+I will present results for 5 dose arms, a true maximal response of 80% and 40 patients per dose arm. 
+
+Then we can start with the results for Part I:
+
+We start with the bias which you can see at y axis and the number of bootstrap iteration on the x-axis. The 0 here stands for the naive estimator without any corrections.Blue and green colors indicate single bootstrap and the yellow and orange colors double bootstrap. The circles represent non-parametric bootstrap and the triangles represent parametric bootstrap. And what we can see is that the number of bootstrap iterations does not affect the bias estimation across all scenarios. Also it does not make a difference to use parametric or non parametric bootstrap. Only single or double bootstrap seems to make a difference. For example in the Logistic dose-response scenario, the double bootstrap methods perform better, but for example in the linear or linear in log-dose the single bootstrap methods perform better. Fr exponential and Step 1 all methods performer similarly. The naive estimator is in three scenarios also a good choice.
+
+For the MSE with have similar results. The bootstrap iterations does not improve the results. Double bootstap is in the most cases worse than single. And the naive estimator has the smallest MSE like expected.
+So to conclude the results so 80 bootstrap iterations provide adaqute bias correction. Other simulation sceanrios (less patients per dose arm. lower true maximal response and trhee instead of 5 dose arems ) yield to the same conclusion. 
+
+For the second part with the bayesian models, we look at each distribution seperatly.
+We start with the uniform distribution
+
+So on the x-axis we have now the upper limit $a$ from 1 to 1000 and the color represents the parameter. So $\log(\sigma)$ or $\sigma$ or $\sigma^2$. For small $a$ the results are more variable for $ a= 10$ with have a overlapping and the for higher $a$ the results differ morge. But depending on the dose-response scenario we can achive good results for the bias.  For small $a$, we have too much shrinkage, and for large $a$, probably a little too little. 
+
+Similalry for the MSE. for small $a$ we have a higher MSE and forr igher $a$ they performe very equivalent.
+
+For the next distrubtion we have two parameters to vary, the degree of fredoms on the x-axis and the scale paramter in colors. Not all $s$ scale paramter are presented, as some of them lead the same bias correction. For small $s$ we have bad performance (again we have here to much shrinakge. For all other paramter of $s$ it is independing from the degrees of freedom and for higher "s$ the results overlap more. Also similar for the MSE. For $s$ unqeual to 0.5 in the most scearios the MSE overlaps.
+
+For the last distribution, we have again two paramters. $b$ is on the $x-axis$ and $a$ in different colors. We have for some scearios a very good performace for the bias. For higher $b$ the the results overlapp. for scearios in the second columdn, we have a more poor perfomrce compared to the others.
+This also reflected for the MSE, but voerall the Gamma Prior have a low MSE. 
+
+
+In Avergae the unfirom prior on $\sigma^2$ with $a = 1000$ and the Gamma prior with $a = 0.25 $ and $b$ shows the smallest bias. The MSE was for the most paramters values and hyperprios comparable, except for the exctreme outlieres, we saw in some of he figures.
+The performance of the priors depends on the true underyling dose-response scenario. 
+
+So as an overall conclusion, we saw that 80 boostrap iterations prvode sufficient results and also bayesian mehtdos show promosing results.
+The next steps are to evalute the bayesian methods for further scenarios (less patients per group, lower maixmal reponse and less groups), and also to inestigate furhter bias correctiosn methods like for example jack knie or other shrinkage estimatos. 
+
+
+

@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Simulation Study}{9}{0}{2}
+\beamer@sectionintoc {3}{Results}{10}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{23}{0}{4}
+\beamer@subsectionintoc {5}{1}{Appendix}{26}{0}{4}
