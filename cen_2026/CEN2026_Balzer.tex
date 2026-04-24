@@ -191,7 +191,7 @@ Heidelberg}
 \section{Introduction}\label{introduction}
 
 \begin{frame}{Introduction \& Previous Work}
-\phantomsection\label{introduction-previous-work}
+\protect\phantomsection\label{introduction-previous-work}
 \pause
 
 \begin{itemize}
@@ -222,7 +222,7 @@ Heidelberg}
 \end{frame}
 
 \begin{frame}{Setup}
-\phantomsection\label{setup}
+\protect\phantomsection\label{setup}
 \begin{itemize}
 \item
   \(I\) active treatment arms with \(n\) patients.
@@ -245,48 +245,53 @@ Heidelberg}
 \end{frame}
 
 \begin{frame}{Idea of the Bootstrap Method}
-\phantomsection\label{idea-of-the-bootstrap-method}
+\protect\phantomsection\label{idea-of-the-bootstrap-method}
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
 
 % --- Row 1: Original Bias ---
-\draw[-] (0,4.2) -- (8,4.2);
+\visible<1->{\draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
-\draw [decorate, decoration={brace, amplitude=10pt}]
-    (1, 4.3) -- (5, 4.3)
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (1, 4.3) -- (5, 4.3) 
     node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
-\node[below] at (5, 4.2) {$\hat{\theta}(x)$};
+\node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
 
+}
 % --- Row 2: Bootstrap Bias Estimate ---
 
-\draw[-] (0,2.5) -- (8,2.5);
+\visible<2->{\draw[-] (0,2.5) -- (8,2.5);
 \draw[|-|] (1,2.5) -- (5,2.5);
 \draw[|-|] (5,2.5) -- (7,2.5);
 \node[below] at (1, 2.5) {\small $\theta_{max}$};
-\node[below] at (5, 2.5) {\small $\hat{\theta}(x)$};
-\node[below] at (7, 2.5) {\small $\hat{\theta}(x_B)$};
+\node[below] at (5, 2.5) {\small $\hat{\theta}(\mathbf{X})$};
+\node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
 
-\draw [decorate, decoration={brace, amplitude=10pt}]
-    (5, 2.6) -- (7, 2.6)
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (5, 2.6) -- (7, 2.6) 
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
+}
 
+\visible<3->{
 % --- Row 3: Bias-corrected Estimator ---
 \draw[-] (0,0.4) -- (8,0.4);
 \draw[|-|] (1,0.4) -- (3,0.4);
 \draw[|-|] (3,0.4) -- (5,0.4);
-\node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(x) = \hat{\theta}(x) - \widehat{\textrm{Bias}} $};
+\node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\textrm{Bias}} $};
 \node[below] at (1, 0.4) {\small $\theta_{max}$};
-\node[below] at (5, 0.4) {\small $\hat{\theta}(x)$};
+\node[below] at (5, 0.4) {\small $\hat{\theta}(\mathbf{X})$};
 
-
+}
 \end{tikzpicture}
 \end{center}
 \end{frame}
 
+\section{Simulation Study}\label{simulation-study}
+
 \begin{frame}{Part I - Optimization of Bootstrap Repetitions}
-\phantomsection\label{part-i---optimization-of-bootstrap-repetitions}
+\protect\phantomsection\label{part-i---optimization-of-bootstrap-repetitions}
 \textbf{Aim}: Optimize the number of bootstrap repetitions \(B\) for the
 single and double (non-)parametric bootstrap in binary endpoints, based
 on bias and MSE.
@@ -294,23 +299,20 @@ on bias and MSE.
 \begin{itemize}
 \tightlist
 \item
-  Triple bootstrap is not considered in this part due to computational
-  burden.
-\item
   The number of bootstrap repetitions \(B\) is set to 80, 100, 200, 500,
   and 1000.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Part II - Bayesian Hierarchical Models}
-\phantomsection\label{part-ii---bayesian-hierarchical-models}
+\protect\phantomsection\label{part-ii---bayesian-hierarchical-models}
 \textbf{Aim}: Identify the optimal hyperprior (with corresponding
 parameters) for a Bayesian hierarchical model to minimize bias and MSE.
 
 The model is specified as:
-\(Y_i \sim \mathrm{Bin}(n, p_i), \quad i = 1, \dots, 5\) with
+\(Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, 5\) with
 
-\[ \mathrm{logit}(p_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).\]
+\[ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).\]
 
 \begin{itemize}
 \item
@@ -323,7 +325,7 @@ The model is specified as:
 \end{frame}
 
 \begin{frame}{Part II - Priors}
-\phantomsection\label{part-ii---priors}
+\protect\phantomsection\label{part-ii---priors}
 The priors and corresponding parameters to evaluate are based on
 \citep{Cunanan}:
 
@@ -361,10 +363,8 @@ The priors and corresponding parameters to evaluate are based on
 \end{itemize}
 \end{frame}
 
-\section{Simulation Study}\label{simulation-study}
-
 \begin{frame}{General Setup}
-\phantomsection\label{general-setup}
+\protect\phantomsection\label{general-setup}
 \begin{columns}[T]
 \begin{column}{0.48\linewidth}
 The simulation study consists of two parts (10.000 repetitions each),
@@ -391,19 +391,19 @@ with the following settings:
 \section{Results}\label{results}
 
 \begin{frame}{Part I}
-\phantomsection\label{part-i}
+\protect\phantomsection\label{part-i}
 \pause
 
 \includegraphics[width=0.54\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_n40_r0_gr5.png}\hfill
 \end{frame}
 
 \begin{frame}{Part I}
-\phantomsection\label{part-i-1}
+\protect\phantomsection\label{part-i-1}
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r0_gr5.png}
 \end{frame}
 
 \begin{frame}{Part I: Summary}
-\phantomsection\label{part-i-summary}
+\protect\phantomsection\label{part-i-summary}
 \begin{itemize}
 \tightlist
 \item
@@ -416,48 +416,48 @@ with the following settings:
 \end{frame}
 
 \begin{frame}{Part II: Uniform {[}0, a{]}}
-\phantomsection\label{part-ii-uniform-0-a}
+\protect\phantomsection\label{part-ii-uniform-0-a}
 \pause
 
 \includegraphics[width=0.56\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/uniform_bias_cen.png}\hfill
 \end{frame}
 
 \begin{frame}{Part II: Uniform {[}0, a{]}}
-\phantomsection\label{part-ii-uniform-0-a-1}
+\protect\phantomsection\label{part-ii-uniform-0-a-1}
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/uniform_cen.png}
 \end{frame}
 
 \begin{frame}{Part II: Half-t(df, s)}
-\phantomsection\label{part-ii-half-tdf-s}
+\protect\phantomsection\label{part-ii-half-tdf-s}
 \pause
 
 \includegraphics[width=0.55\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/half-t_bias_cen.png}\hfill
 \end{frame}
 
 \begin{frame}{Part II: Half-t(df, s)}
-\phantomsection\label{part-ii-half-tdf-s-1}
+\protect\phantomsection\label{part-ii-half-tdf-s-1}
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/halft_cen.png}
 \end{frame}
 
 \begin{frame}{Part II: Gamma(a,b)}
-\phantomsection\label{part-ii-gammaab}
+\protect\phantomsection\label{part-ii-gammaab}
 \includegraphics[width=0.55\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/gamma_bias_cen.png}
 \end{frame}
 
 \begin{frame}{Part II: Gamma(a,b)}
-\phantomsection\label{part-ii-gammaab-1}
+\protect\phantomsection\label{part-ii-gammaab-1}
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/gamma_cen.png}
 \end{frame}
 
 \begin{frame}{Part II: Summary}
-\phantomsection\label{part-ii-summary}
+\protect\phantomsection\label{part-ii-summary}
 \begin{tabular}{l r r l r r }
 \textbf{Method} & \multicolumn{4}{l}{\textbf{Parameter}} & \textbf{Bias (MSE)} \\ \hline
 Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
 Uniform $\sigma$ & $a = $ & 100 & &  & -0.0047 (0.00371)  \\
 Uniform $\sigma^2$ & $a = $ & 1000 & &  & 0.0003 (0.00357)  \\
 Half-t & $df = $ & 100& s = & 500 & -0.0043 (0.00369)  \\
-Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
+Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335) 
 \end{tabular}
 
 \begin{itemize}
@@ -476,7 +476,7 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \section{Conclusion}\label{conclusion}
 
 \begin{frame}{Conclusion}
-\phantomsection\label{conclusion-1}
+\protect\phantomsection\label{conclusion-1}
 \begin{itemize}
 \tightlist
 \item
@@ -489,49 +489,47 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \end{itemize}
 \end{frame}
 
+\subsection{Appendix}\label{appendix}
+
+\begin{frame}{n = 40, max response 60\%, 5 groups}
+\protect\phantomsection\label{n-40-max-response-60-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 40, max response 80\%, 3 groups}
+\protect\phantomsection\label{n-40-max-response-80-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r0_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 40, max response 60\%, 3 groups}
+\protect\phantomsection\label{n-40-max-response-60-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 80\%, 5 groups}
+\protect\phantomsection\label{n-20-max-response-80-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 60\%, 5 groups}
+\protect\phantomsection\label{n-20-max-response-60-5-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr5.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 80\%, 3 groups}
+\protect\phantomsection\label{n-20-max-response-80-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr3.png}
+\end{frame}
+
+\begin{frame}{n = 20, max response 60\%, 3 groups}
+\protect\phantomsection\label{n-20-max-response-60-3-groups}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr3.png}
+\end{frame}
+
 \renewcommand\refname{References}
 \begin{frame}[allowframebreaks]{References}
   \bibliographytrue
   \bibliography{bibliography.bib}
 \end{frame}
-
-\subsection{Appendix}\label{appendix}
-
-\begin{frame}{n = 40, max response 60\%, 5 groups}
-\phantomsection\label{n-40-max-response-60-5-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr5.png}
-\end{frame}
-
-\begin{frame}{n = 40, max response 80\%, 3 groups}
-\phantomsection\label{n-40-max-response-80-3-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r0_gr3.png}
-\end{frame}
-
-\begin{frame}{n = 40, max response 60\%, 3 groups}
-\phantomsection\label{n-40-max-response-60-3-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n40_r1_gr3.png}
-\end{frame}
-
-\begin{frame}{n = 20, max response 80\%, 5 groups}
-\phantomsection\label{n-20-max-response-80-5-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr5.png}
-\end{frame}
-
-\begin{frame}{n = 20, max response 60\%, 5 groups}
-\phantomsection\label{n-20-max-response-60-5-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr5.png}
-\end{frame}
-
-\begin{frame}{n = 20, max response 80\%, 3 groups}
-\phantomsection\label{n-20-max-response-80-3-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r0_gr3.png}
-\end{frame}
-
-\begin{frame}{n = 20, max response 60\%, 3 groups}
-\phantomsection\label{n-20-max-response-60-3-groups}
-\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr3.png}
-\end{frame}
-
-
 
 \end{document}

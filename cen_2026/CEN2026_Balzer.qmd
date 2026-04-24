@@ -82,7 +82,7 @@ library(gt)
 \begin{tikzpicture}[scale=1.0]
 
 % --- Row 1: Original Bias ---
-\draw[-] (0,4.2) -- (8,4.2);
+\visible<1->{\draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
@@ -91,19 +91,22 @@ library(gt)
 \node[below] at (1, 4.2) {$\theta_{max}$};
 \node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
 
+}
 % --- Row 2: Bootstrap Bias Estimate ---
 
-\draw[-] (0,2.5) -- (8,2.5);
+\visible<2->{\draw[-] (0,2.5) -- (8,2.5);
 \draw[|-|] (1,2.5) -- (5,2.5);
 \draw[|-|] (5,2.5) -- (7,2.5);
 \node[below] at (1, 2.5) {\small $\theta_{max}$};
-\node[below] at (5, 2.5) {\smal $\hat{\theta}(\mathbf{X})$};
+\node[below] at (5, 2.5) {\small $\hat{\theta}(\mathbf{X})$};
 \node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
     (5, 2.6) -- (7, 2.6) 
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
+}
 
+\visible<3->{
 % --- Row 3: Bias-corrected Estimator ---
 \draw[-] (0,0.4) -- (8,0.4);
 \draw[|-|] (1,0.4) -- (3,0.4);
@@ -112,7 +115,7 @@ library(gt)
 \node[below] at (1, 0.4) {\small $\theta_{max}$};
 \node[below] at (5, 0.4) {\small $\hat{\theta}(\mathbf{X})$};
 
-
+}
 \end{tikzpicture}
 \end{center}
 ```

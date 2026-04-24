@@ -41,27 +41,27 @@ Then we can start with the results for Part I:
 
 We start with the bias which you can see at y axis and the number of bootstrap iteration on the x-axis. The 0 here stands for the naive estimator without any corrections.Blue and green colors indicate single bootstrap and the yellow and orange colors double bootstrap. The circles represent non-parametric bootstrap and the triangles represent parametric bootstrap. And what we can see is that the number of bootstrap iterations does not affect the bias estimation across all scenarios. Also it does not make a difference to use parametric or non parametric bootstrap. Only single or double bootstrap seems to make a difference. For example in the Logistic dose-response scenario, the double bootstrap methods perform better, but for example in the linear or linear in log-dose the single bootstrap methods perform better. Fr exponential and Step 1 all methods performer similarly. The naive estimator is in three scenarios also a good choice.
 
-For the MSE with have similar results. The bootstrap iterations does not improve the results. Double bootstap is in the most cases worse than single. And the naive estimator has the smallest MSE like expected.
-So to conclude the results so 80 bootstrap iterations provide adaqute bias correction. Other simulation sceanrios (less patients per dose arm. lower true maximal response and trhee instead of 5 dose arems ) yield to the same conclusion. 
+For the MSE we observe similar results. The number of bootstrap iterations does not improve the results. Double bootstrap performes worse in the most cases.The naive estimator has the smallest MSE as expected.
+To summarize: 80 bootstrap iterations provide adequate bias correction. Other simulation scenarios (fewer patients per dose arm. lower true maximal response and three instead of 5 dose arms ) yield the same conclusion. 
 
-For the second part with the bayesian models, we look at each distribution seperatly.
+For the second part with the Bayesian models, we look at each distribution separately.
 We start with the uniform distribution
 
-So on the x-axis we have now the upper limit $a$ from 1 to 1000 and the color represents the parameter. So $\log(\sigma)$ or $\sigma$ or $\sigma^2$. For small $a$ the results are more variable for $ a= 10$ with have a overlapping and the for higher $a$ the results differ morge. But depending on the dose-response scenario we can achive good results for the bias.  For small $a$, we have too much shrinkage, and for large $a$, probably a little too little. 
+So on the x-axis we have now the upper limit $a$ from 1 to 1000 and the color represents the parameterization. So $\log(\sigma)$, $\sigma$ or $\sigma^2$. For small $a$ the results are more variable for $ a= 10$ we observe a overlapping  results and for higher values of $a$ the the results diverge again. Depending on the dose-response scenario good bias correction can be achieved.  For small $a$, we have too much shrinkage, and for large $a$, shrinkage may be insufficient. 
 
-Similalry for the MSE. for small $a$ we have a higher MSE and forr igher $a$ they performe very equivalent.
+Similarly for the MSE. for small $a$ we have a higher MSE and fore higher values of $a$ the results perform equivalently.
 
-For the next distrubtion we have two parameters to vary, the degree of fredoms on the x-axis and the scale paramter in colors. Not all $s$ scale paramter are presented, as some of them lead the same bias correction. For small $s$ we have bad performance (again we have here to much shrinakge. For all other paramter of $s$ it is independing from the degrees of freedom and for higher "s$ the results overlap more. Also similar for the MSE. For $s$ unqeual to 0.5 in the most scearios the MSE overlaps.
+For the next distribution we have two parameters to vary, the degree of freedoms on the x-axis and the scale parameter represented by colors. Not all $s$ scale parameter are presented, as some of them yield the same bias correction. For small $s$ we have bad performance (again we have here to much shrinkage. For all other parameter of $s$ it is independent of the degrees of freedom and for higher $s$ the results overlap more. Also similar for the MSE. For values of $s$ other than 0.5 in the most scenarios the MSE values overlaps.
 
-For the last distribution, we have again two paramters. $b$ is on the $x-axis$ and $a$ in different colors. We have for some scearios a very good performace for the bias. For higher $b$ the the results overlapp. for scearios in the second columdn, we have a more poor perfomrce compared to the others.
-This also reflected for the MSE, but voerall the Gamma Prior have a low MSE. 
+For the last distribution, we again have two parameters. $b$ is on the x-axis and $a$ in different colors. For some scenarios we can observe a very good performance for the bias. For higher values of $b$ the the results overlap. for scenarios in the second column, we have a poorer performance compared to the others.
+This also reflected for the MSE, but overall the Gamma Prior yields low MSE. 
 
 
-In Avergae the unfirom prior on $\sigma^2$ with $a = 1000$ and the Gamma prior with $a = 0.25 $ and $b$ shows the smallest bias. The MSE was for the most paramters values and hyperprios comparable, except for the exctreme outlieres, we saw in some of he figures.
-The performance of the priors depends on the true underyling dose-response scenario. 
+On average the following parametrization for each prior achieve the best results with respect to bias and MSE. The uniform prior on $\sigma^2$ with $a = 1000$ and the Gamma prior with $a = 0.25 $ and $b$ show the smallest bias. The MSE was for the most parameters values and hyper priors comparable, except for the extreme outliners, as seen in some of the figures.
+The performance of the priors depends on the true underlying dose-response scenario. 
 
-So as an overall conclusion, we saw that 80 boostrap iterations prvode sufficient results and also bayesian mehtdos show promosing results.
-The next steps are to evalute the bayesian methods for further scenarios (less patients per group, lower maixmal reponse and less groups), and also to inestigate furhter bias correctiosn methods like for example jack knie or other shrinkage estimatos. 
+In conclusion, 80 bootstrap iterations provide sufficient results and  Bayesian methods also show promising results.
+The next steps are to evaluate the Bayesian methods for further scenarios (fewer patients per group, lower maximal repose and less groups), and also to investigate further bias corrections methods such as the jackknife or other shrinkage estimators. 
 
 
 
