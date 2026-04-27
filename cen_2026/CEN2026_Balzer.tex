@@ -81,7 +81,7 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies},
-  pdfauthor={Alexandra Balzer},
+  pdfauthor={Alexandra Balzer, Meinhard Kieser},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -177,7 +177,7 @@
 Dose-finding Studies]{Computational Methods to Reduce Bias in Binary
 Endpoints in Dose-finding Studies}
 \subtitle{CEN Warschau 2026}
-\author[Alexandra Balzer]{Alexandra Balzer}
+\author[Alexandra Balzer]{\textbf{Alexandra Balzer}, Meinhard Kieser}
 \date{21.05.2026}
 \institute{Institute of Medical Biometry \break University of
 Heidelberg}
@@ -255,8 +255,8 @@ Heidelberg}
 \visible<1->{\draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
-\draw [decorate, decoration={brace, amplitude=10pt}]
-    (1, 4.3) -- (5, 4.3)
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (1, 4.3) -- (5, 4.3) 
     node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
 \node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
@@ -271,8 +271,8 @@ Heidelberg}
 \node[below] at (5, 2.5) {\small $\hat{\theta}(\mathbf{X})$};
 \node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
 
-\draw [decorate, decoration={brace, amplitude=10pt}]
-    (5, 2.6) -- (7, 2.6)
+\draw [decorate, decoration={brace, amplitude=10pt}] 
+    (5, 2.6) -- (7, 2.6) 
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \mathrm{E}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
 }
 
@@ -459,7 +459,7 @@ Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
 Uniform $\sigma$ & $a = $ & 100 & &  & -0.0047 (0.00371)  \\
 Uniform $\sigma^2$ & $a = $ & 1000 & &  & 0.0003 (0.00357)  \\
 Half-t & $df = $ & 100& s = & 500 & -0.0043 (0.00369)  \\
-Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
+Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335) 
 \end{tabular}
 
 \begin{itemize}
@@ -491,13 +491,6 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
   Further scenarios for Bayesian methods and further methods will be
   investigated.
 \end{itemize}
-\end{frame}
-
-
-\renewcommand\refname{References}
-\begin{frame}[allowframebreaks]{References}
-  \bibliographytrue
-  \bibliography{bibliography.bib}
 \end{frame}
 
 \subsection{Appendix}\label{appendix}
@@ -537,5 +530,10 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr3.png}
 \end{frame}
 
+\renewcommand\refname{References}
+\begin{frame}[allowframebreaks]{References}
+  \bibliographytrue
+  \bibliography{bibliography.bib}
+\end{frame}
 
 \end{document}

@@ -3,7 +3,7 @@ title: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding 
 title_short: Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies
 subtitle: "CEN Warschau 2026"
 institute: "Institute of Medical Biometry \\break University of Heidelberg"
-author: "Alexandra Balzer"
+author: "**Alexandra Balzer**, Meinhard Kieser"
 author_short: "Alexandra Balzer"
 date: "2026-05-21"
 date-format: "DD.MM.YYYY"
