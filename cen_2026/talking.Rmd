@@ -15,8 +15,8 @@ Zhan proposed some methods for bias correction for normally distributed endpoint
 So the setup is the following:
 We consider I active treatment arm. The response for a patient j in group i is given as $X_{ij}$ and is following a Bernoulli distribution with unknown parameter $\theta_i$.
 So for each dose arm we get a vector of responses $\mathbf{X_i} = (X_{i1}, \dots , X_{in})$ and a matrix of the response vectors. $\mathbf{X} = (\mathbf{X_1}, \dots, \mathbf{X_I})$.
-The parameter of interest is the maximum $\theta_i$, that is the maximum over all response proportions. The estimator for this $\theta_max$ is given, as the maximum over all mean values. 
-But even if the mean value over all responses in one arm is unbiased, the estimator for the maximum response is not. 
+The parameter of interest is the maximum $\theta_i$, that is the maximum over all true response probabilities. The estimator for this $\theta_max$ is given, as the maximum over all estimated response probabilities. 
+But even if the estimated response probabilitie as the mean value is unbiased, the estimator for the maximum response is not. 
 
 So one idea is to use bootstrap to correct for this bias. 
 So we have the true but unknown paramter $\theta_{max}$. The estimator $\hat{\theta}(\mathbf{X})$ is biased and the true bias is defined as the expected value of $\hat{\theta}(\mathbf{X})$ minus the true maximum.

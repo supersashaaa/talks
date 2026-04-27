@@ -77,6 +77,8 @@ library(gt)
 
 ### Idea of the Bootstrap Method
 
+\pause
+
 ```{=latex}
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -103,7 +105,7 @@ library(gt)
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
     (5, 2.6) -- (7, 2.6) 
-    node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \hat{\mathrm{E}}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
+    node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \mathrm{E}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
 }
 
 \visible<3->{
@@ -131,13 +133,13 @@ library(gt)
 
 **Aim**: Identify the optimal hyperprior (with corresponding parameters) for a Bayesian hierarchical model to minimize bias and MSE.
 
-The model is specified as: $Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, 5$ with
+The model is specified as: $Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, I$ with
 
 $$ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).$$
 
 * Hyperpriors determine how much information is pooled across groups (i.e., $\sigma^2$ controls degree of shrinkage).
 
-* The following MCMC settings are applied fo all fits: burn-in 2.000, number of chains 3, total MCMC iterations per chain: 10.000.
+* The following MCMC settings are applied fo all fits: number of chains 3, total iterations per chain: 10.000, burn-in: 2.000 .
 
 ### Part II - Priors
 
@@ -282,6 +284,7 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 
 * $B = 80$ bootstrap iterations are sufficient.
 * Bayesian methods show promising results in reducing bias.
+* Results depend on the true dose-response relationship. 
 * Further scenarios for Bayesian methods and further methods will be investigated.
 
 ## Appendix
