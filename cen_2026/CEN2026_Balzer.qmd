@@ -4,7 +4,7 @@ title_short: Computational Methods to Reduce Bias in Binary Endpoints in Dose-fi
 subtitle: "CEN Warschau 2026"
 institute: "Institute of Medical Biometry \\break University of Heidelberg"
 author: "**Alexandra Balzer**, Meinhard Kieser"
-author_short: "Alexandra Balzer"
+author_short: "**Balzer**, Kieser"
 date: "2026-05-21"
 date-format: "DD.MM.YYYY"
 format: 
@@ -13,6 +13,8 @@ format:
     keep-tex: true
     cite-method: natbib
 linestretch: 1.1
+
+
 header-includes:
     - \input{imbi_layout_markdownbeamer_en.tex}
     - \usepackage{tikz}
@@ -42,21 +44,19 @@ library(gt)
 
 ### Introduction & Previous Work
 
-\pause
-
 
 * Optimization of dose finding and selection is a key goal in oncology drug research.
 * OPTIMUS Project: FDA initiative to improve dose optimization/dose finding.
 * Key challenge: Accurate estimation of therapeutic effects
   * True treatment effect is often overestimated in Phase II
   * Phase III results may not confirm Phase II findings.
-* Bias-correction methods were presented for normally distributed outcomes (e.g. boostrap methods) ([@tianyu2024])
-* No existing methods for binary endpoints identified in a literature research.
+* Bias-correction methods were presented for normally distributed outcomes (e.g. boostrap methods) [@tianyu2024]
+* No existing methods for binary endpoints identified in a literature review.
 
 
 ### Setup
 
-* $I$ active treatment arms with $n$ patients.
+* $I$ active treatment arms with $n$ patients per arm.
 * Response $X_{ij}$ for patient $j$ in group $i$ with $X_{ij} \sim \textrm{Ber}(\theta_i)$ and $i = 1, \dots, I$. 
 * $\mathbf{X_i} = (X_{i1}, \dots, X_{in})$ vector of responses for group $i$ and $\mathbf{X} = (\mathbf{X_1}, \dots, \mathbf{X_I}).$
 
@@ -77,41 +77,43 @@ library(gt)
 
 ### Idea of the Bootstrap Method
 
-\pause
 
 ```{=latex}
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
 
 % --- Row 1: Original Bias ---
-\visible<1->{\draw[-] (0,4.2) -- (8,4.2);
+\visible<1->{
+\draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
     (1, 4.3) -- (5, 4.3) 
-    node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
+    node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(\mathbf{X})] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
 \node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
 
 }
+
 % --- Row 2: Bootstrap Bias Estimate ---
 
-\visible<2->{\draw[-] (0,2.5) -- (8,2.5);
-\draw[|-|] (1,2.5) -- (5,2.5);
-\draw[|-|] (5,2.5) -- (7,2.5);
-\node[below] at (1, 2.5) {\small $\theta_{max}$};
-\node[below] at (5, 2.5) {\small $\hat{\theta}(\mathbf{X})$};
-\node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
+\visible<2->{
+\draw[-] (0,2.3) -- (8,2.3);
+\draw[|-] (1,2.3) -- (5,2.3);
+\draw[|-|] (5,2.3) -- (7,2.3);
+\node[below] at (1, 2.3) {\small $\theta_{max}$};
+\node[below] at (5, 2.3) {\small $\hat{\theta}(\mathbf{X})$};
+\node[below] at (7, 2.3) {\small $\hat{\theta}(\mathbf{X_B})$};
 
 \draw [decorate, decoration={brace, amplitude=10pt}] 
-    (5, 2.6) -- (7, 2.6) 
+    (5, 2.5) -- (7, 2.5) 
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \mathrm{E}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
 }
 
 \visible<3->{
 % --- Row 3: Bias-corrected Estimator ---
 \draw[-] (0,0.4) -- (8,0.4);
-\draw[|-|] (1,0.4) -- (3,0.4);
+\draw[|-] (1,0.4) -- (3,0.4);
 \draw[|-|] (3,0.4) -- (5,0.4);
 \node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\textrm{Bias}} $};
 \node[below] at (1, 0.4) {\small $\theta_{max}$};
@@ -135,11 +137,11 @@ library(gt)
 
 The model is specified as: $Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, I$ with
 
-$$ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).$$
+$$ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100) \textrm{ and } \sigma^2 \sim F.$$
 
 * Hyperpriors determine how much information is pooled across groups (i.e., $\sigma^2$ controls degree of shrinkage).
 
-* The following MCMC settings are applied fo all fits: number of chains 3, total iterations per chain: 10.000, burn-in: 2.000 .
+* The following MCMC settings are applied fo all fits: number of chains 3, total iterations per chain: 10 000, burn-in: 2 000.
 
 ### Part II - Priors
 
@@ -206,6 +208,7 @@ knitr::include_graphics("U:/Thesis/programs/Part_I/plots/bias_mse_n40_r0_gr5.png
 * No relevant differences in bias or MSE across bootstrap iterations.
 * $B = 80$ bootstrap iterations provide adequate bias correction.
 * Other simulation scenarios reached the same conclusion.
+* Performance of the bootstrap method depends on the true dose-response relationship.
 
 ### Part II: Uniform [0, a]
 
@@ -228,7 +231,7 @@ knitr::include_graphics("U:/Thesis/programs/Simulation final/Plots/uniform_cen.p
 
 ### Part II: Half-t(df, s)
 
-\pause
+
 
 ```{r 5, echo = F, fig.align = 'left', out.width = "55%"}
 
@@ -263,7 +266,7 @@ knitr::include_graphics("U:/Thesis/programs/Simulation final/Plots/gamma_cen.png
 ```
 
 ### Part II: Summary
-
+Optimal parameters based on mean bias (MSE) across all dose-response relationships:
 \begin{tabular}{l r r l r r }
 \textbf{Method} & \multicolumn{4}{l}{\textbf{Parameter}} & \textbf{Bias (MSE)} \\ \hline
 Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
@@ -275,7 +278,6 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 
 
 * Uniform prior on $\sigma^2$ with $a = 1000$ and Gamma prior with $a = 0.25$ and $b = 5$ show the smallest bias.
-* MSE is very similar for most parameter values and hyperpriors, except of extreme outliers.
 * Prior choice depends on the true underlying dose-response scenario. 
 
 # Conclusion
@@ -285,7 +287,7 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 * $B = 80$ bootstrap iterations are sufficient.
 * Bayesian methods show promising results in reducing bias.
 * Results depend on the true dose-response relationship. 
-* Further scenarios for Bayesian methods and further methods will be investigated.
+* Further scenarios for Bayesian methods ($n=20$, $I=3$, etc.) and further methods (e.g. Jackknife) will be investigated.
 
 ## Appendix
 

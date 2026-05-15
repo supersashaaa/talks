@@ -1,0 +1,30 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Cunanan et~al.(2019)Cunanan, Iasonos, Shen, and Gönen]{Cunanan}
+Kristen~M Cunanan, Alexia Iasonos, Ronglai Shen, and Mithat Gönen.
+\newblock Variance prior specification for a basket trial design using bayesian hierarchical modeling.
+\newblock \emph{Clinical Trials}, 16\penalty0 (2):\penalty0 142--153, 2019.
+\newblock \doi{10.1177/1740774518812779}.
+\newblock URL \url{https://doi.org/10.1177/1740774518812779}.
+\newblock PMID: 30526008.
+
+\bibitem[Ivanova et~al.(2012)Ivanova, Xiao, and Tymofyeyev]{Ivanova2012}
+Anastasia Ivanova, Changfu Xiao, and Yevgen Tymofyeyev.
+\newblock Two-stage designs for phase 2 dose-finding trials.
+\newblock \emph{Statistics in Medicine}, 31\penalty0 (24):\penalty0 2872--2881, 2012.
+\newblock \doi{https://doi.org/10.1002/sim.5365}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.5365}.
+
+\bibitem[Zhan(2024)]{tianyu2024}
+Tianyu Zhan.
+\newblock A class of computational methods to reduce selection bias when designing phase 3 clinical trials.
+\newblock \emph{Statistics in Medicine}, 43\penalty0 (10):\penalty0 1993--2006, 2024.
+\newblock \doi{https://doi.org/10.1002/sim.10041}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/sim.10041}.
+
+\end{thebibliography}

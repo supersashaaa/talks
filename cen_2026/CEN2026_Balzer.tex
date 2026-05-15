@@ -80,7 +80,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Computational Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies},
+  pdftitle={Statistical Methods to Reduce Bias in Binary Endpoints in Dose-finding Studies},
   pdfauthor={Alexandra Balzer, Meinhard Kieser},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
@@ -173,11 +173,12 @@
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
 
-\title[Computational Methods to Reduce Bias in Binary Endpoints in
-Dose-finding Studies]{Computational Methods to Reduce Bias in Binary
+\title[Statistical Methods to Reduce Bias in Binary Endpoints in
+Dose-finding Studies]{Statistical Methods to Reduce Bias in Binary
 Endpoints in Dose-finding Studies}
 \subtitle{CEN Warschau 2026}
-\author[Alexandra Balzer]{\textbf{Alexandra Balzer}, Meinhard Kieser}
+\author[\textbf{Balzer}, Kieser]{\textbf{Alexandra Balzer}, Meinhard
+Kieser}
 \date{21.05.2026}
 \institute{Institute of Medical Biometry \break University of
 Heidelberg}
@@ -192,8 +193,6 @@ Heidelberg}
 
 \begin{frame}{Introduction \& Previous Work}
 \protect\phantomsection\label{introduction-previous-work}
-\pause
-
 \begin{itemize}
 \tightlist
 \item
@@ -214,10 +213,10 @@ Heidelberg}
   \end{itemize}
 \item
   Bias-correction methods were presented for normally distributed
-  outcomes (e.g.~boostrap methods) (\citep{tianyu2024})
+  outcomes (e.g.~boostrap methods) \citep{tianyu2024}
 \item
   No existing methods for binary endpoints identified in a literature
-  research.
+  review.
 \end{itemize}
 \end{frame}
 
@@ -225,7 +224,7 @@ Heidelberg}
 \protect\phantomsection\label{setup}
 \begin{itemize}
 \item
-  \(I\) active treatment arms with \(n\) patients.
+  \(I\) active treatment arms with \(n\) patients per arm.
 \item
   Response \(X_{ij}\) for patient \(j\) in group \(i\) with
   \(X_{ij} \sim \textrm{Ber}(\theta_i)\) and \(i = 1, \dots, I\).
@@ -246,40 +245,41 @@ Heidelberg}
 
 \begin{frame}{Idea of the Bootstrap Method}
 \protect\phantomsection\label{idea-of-the-bootstrap-method}
-\pause
-
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
 
 % --- Row 1: Original Bias ---
-\visible<1->{\draw[-] (0,4.2) -- (8,4.2);
+\visible<1->{
+\draw[-] (0,4.2) -- (8,4.2);
 \draw[|-|] (1,4.2) -- (5,4.2);
 
-\draw [decorate, decoration={brace, amplitude=10pt}] 
-    (1, 4.3) -- (5, 4.3) 
-    node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(X)] - \theta_{max}$};
+\draw [decorate, decoration={brace, amplitude=10pt}]
+    (1, 4.3) -- (5, 4.3)
+    node[midway, above=8pt] {\footnotesize $\textrm{Bias} = \mathrm{E}[\hat{\theta}(\mathbf{X})] - \theta_{max}$};
 \node[below] at (1, 4.2) {$\theta_{max}$};
 \node[below] at (5, 4.2) {$\hat{\theta}(\mathbf{X})$};
 
 }
+
 % --- Row 2: Bootstrap Bias Estimate ---
 
-\visible<2->{\draw[-] (0,2.5) -- (8,2.5);
-\draw[|-|] (1,2.5) -- (5,2.5);
-\draw[|-|] (5,2.5) -- (7,2.5);
-\node[below] at (1, 2.5) {\small $\theta_{max}$};
-\node[below] at (5, 2.5) {\small $\hat{\theta}(\mathbf{X})$};
-\node[below] at (7, 2.5) {\small $\hat{\theta}(\mathbf{X_B})$};
+\visible<2->{
+\draw[-] (0,2.3) -- (8,2.3);
+\draw[|-] (1,2.3) -- (5,2.3);
+\draw[|-|] (5,2.3) -- (7,2.3);
+\node[below] at (1, 2.3) {\small $\theta_{max}$};
+\node[below] at (5, 2.3) {\small $\hat{\theta}(\mathbf{X})$};
+\node[below] at (7, 2.3) {\small $\hat{\theta}(\mathbf{X_B})$};
 
-\draw [decorate, decoration={brace, amplitude=10pt}] 
-    (5, 2.6) -- (7, 2.6) 
+\draw [decorate, decoration={brace, amplitude=10pt}]
+    (5, 2.5) -- (7, 2.5)
     node[midway, above=8pt] {\footnotesize $\widehat{\textrm{Bias}} = \mathrm{E}[\hat{\theta}(\mathbf{X_B})] - \hat{\theta}(\mathbf{X})$};
 }
 
 \visible<3->{
 % --- Row 3: Bias-corrected Estimator ---
 \draw[-] (0,0.4) -- (8,0.4);
-\draw[|-|] (1,0.4) -- (3,0.4);
+\draw[|-] (1,0.4) -- (3,0.4);
 \draw[|-|] (3,0.4) -- (5,0.4);
 \node[above] at (3, 0.6) {\small $\hat{\theta}^{(1)}(\mathbf{X}) = \hat{\theta}(\mathbf{X}) - \widehat{\textrm{Bias}} $};
 \node[below] at (1, 0.4) {\small $\theta_{max}$};
@@ -314,7 +314,7 @@ parameters) for a Bayesian hierarchical model to minimize bias and MSE.
 The model is specified as:
 \(Y_i \sim \mathrm{Bin}(n, \theta_i), \quad i = 1, \dots, I\) with
 
-\[ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100).\]
+\[ \mathrm{logit}(\theta_i) \sim \mathcal{N}(\mu, \sigma^2), \quad \mu \sim \mathcal{N}(-1.38, 100) \textrm{ and } \sigma^2 \sim F.\]
 
 \begin{itemize}
 \item
@@ -322,7 +322,7 @@ The model is specified as:
   (i.e., \(\sigma^2\) controls degree of shrinkage).
 \item
   The following MCMC settings are applied fo all fits: number of chains
-  3, total iterations per chain: 10.000, burn-in: 2.000 .
+  3, total iterations per chain: 10 000, burn-in: 2 000.
 \end{itemize}
 \end{frame}
 
@@ -414,6 +414,9 @@ with the following settings:
   \(B = 80\) bootstrap iterations provide adequate bias correction.
 \item
   Other simulation scenarios reached the same conclusion.
+\item
+  Performance of the bootstrap method depends on the true dose-response
+  relationship.
 \end{itemize}
 \end{frame}
 
@@ -431,8 +434,6 @@ with the following settings:
 
 \begin{frame}{Part II: Half-t(df, s)}
 \protect\phantomsection\label{part-ii-half-tdf-s}
-\pause
-
 \includegraphics[width=0.55\linewidth,height=\textheight,keepaspectratio]{../../Simulation final/Plots/half-t_bias_cen.png}\hfill
 \end{frame}
 
@@ -453,13 +454,16 @@ with the following settings:
 
 \begin{frame}{Part II: Summary}
 \protect\phantomsection\label{part-ii-summary}
+Optimal parameters based on mean bias (MSE) across all dose-response
+relationships:
+
 \begin{tabular}{l r r l r r }
 \textbf{Method} & \multicolumn{4}{l}{\textbf{Parameter}} & \textbf{Bias (MSE)} \\ \hline
 Uniform $\log(\sigma)$ & $a = $ & 2& &  & -0.0070 (0.00351)  \\
 Uniform $\sigma$ & $a = $ & 100 & &  & -0.0047 (0.00371)  \\
 Uniform $\sigma^2$ & $a = $ & 1000 & &  & 0.0003 (0.00357)  \\
 Half-t & $df = $ & 100& s = & 500 & -0.0043 (0.00369)  \\
-Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335) 
+Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \end{tabular}
 
 \begin{itemize}
@@ -467,9 +471,6 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \item
   Uniform prior on \(\sigma^2\) with \(a = 1000\) and Gamma prior with
   \(a = 0.25\) and \(b = 5\) show the smallest bias.
-\item
-  MSE is very similar for most parameter values and hyperpriors, except
-  of extreme outliers.
 \item
   Prior choice depends on the true underlying dose-response scenario.
 \end{itemize}
@@ -488,9 +489,17 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \item
   Results depend on the true dose-response relationship.
 \item
-  Further scenarios for Bayesian methods and further methods will be
-  investigated.
+  Further scenarios for Bayesian methods (\(n=20\), \(I=3\), etc.) and
+  further methods (e.g.~Jackknife) will be investigated.
 \end{itemize}
+\end{frame}
+
+
+
+\renewcommand\refname{References}
+\begin{frame}[allowframebreaks]{References}
+  \bibliographytrue
+  \bibliography{bibliography.bib}
 \end{frame}
 
 \subsection{Appendix}\label{appendix}
@@ -528,12 +537,6 @@ Gamma & $a = $ & 0.25& b = & 5 & 0.0004 (0.00335)
 \begin{frame}{n = 20, max response 60\%, 3 groups}
 \protect\phantomsection\label{n-20-max-response-60-3-groups}
 \includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{../../Part_I/plots/bias_mse_n20_r1_gr3.png}
-\end{frame}
-
-\renewcommand\refname{References}
-\begin{frame}[allowframebreaks]{References}
-  \bibliographytrue
-  \bibliography{bibliography.bib}
 \end{frame}
 
 \end{document}
